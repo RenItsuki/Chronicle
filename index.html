@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chronicle</title>
+
+<style>
+
+/* ===============================
+   GLOBAL
+=============================== */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b0b0f;
+  color: white;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100vh;
+}
+
+/* large horizontal canvas */
+.canvas {
+  width: 3000px;
+  height: 100vh;
+  position: relative;
+}
+
+/* ===============================
+   NAVBAR
+=============================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px 40px;
+  background: #111116;
+  border-bottom: 1px solid #2a2a2f;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ff1e1e;
+  text-shadow: 0 0 12px rgba(255,0,0,.8);
+}
+
+.nav-right {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-right div {
+  cursor: pointer;
+  color: #ccc;
+}
+
+.nav-right div:hover {
+  color: #ff1e1e;
+}
+
+/* ===============================
+   HERO TITLE
+=============================== */
+.hero {
+  position: absolute;
+  left: 180px;
+  top: 55%;
+  transform: translateY(-50%);
+}
+
+.hero h1 {
+  font-size: 90px;
+  margin: 0;
+  color: #ff1e1e;
+
+  text-shadow:
+    0 0 15px #ff1e1e,
+    0 0 30px rgba(255,0,0,.6);
+}
+
+/* ===============================
+   CONNECTED TIMELINE
+   SAME HEIGHT AS TITLE
+=============================== */
+.timeline-line {
+  position: absolute;
+
+  left: 730px; /* starts AFTER title */
+  top: 55%;    /* SAME HEIGHT */
+
+  height: 4px;
+  width: 2400px;
+
+  background: linear-gradient(90deg,#ff1e1e,#441111);
+}
+
+/* ===============================
+   EVENTS (ABOVE LINE)
+=============================== */
+.event {
+  position: absolute;
+  transform: translate(80px, -5px);
+  text-align: center;
+  cursor: pointer;
+}
+
+.event-dot {
+  width: 14px;
+  height: 14px;
+  background: #240101;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff1e1e;
+  margin: auto;
+}
+
+.event-title {
+  position: absolute;
+
+  /* ABOVE the line */
+  bottom: 40px;
+
+  width: 180px;
+  left: -80px;
+  font-size: 13px;
+  color: #eee;
+}
+
+.event-time {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #888;
+}
+
+.event:hover .event-dot {
+  transform: scale(1.7);
+  box-shadow: 0 0 20px #ff1e1e;
+}
+
+/* ===============================
+   SCROLLBAR
+=============================== */
+body::-webkit-scrollbar {
+  height: 8px;
+}
+body::-webkit-scrollbar-thumb {
+  background: #ff1e1e;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">Chronicle</div>
+  <div class="nav-right">
+    <div>Home</div>
+    <div>Full Timeline</div>
+    <div>Hot Articles</div>
+  </div>
+</div>
+
+
+<!-- CANVAS -->
+<div class="canvas">
+
+  <!-- TITLE -->
+  <div class="hero">
+    <h1>CHRONICLE</h1>
+  </div>
+
+  <!-- CONNECTED LINE -->
+  <div class="timeline-line" id="line"></div>
+
+</div>
+
+
+<script>
+
+/* =================================
+   Events spaced by increasing time
+================================= */
+
+const events = [
+  { title:"Local Case", time:"1 min", x:650 },
+  { title:"China’s corruption watchdog", time:"1 hr", x:800 },
+  { title:"Russia launched a wave of airstrikes", time:"1 day", x:1050 },
+  { title:"US markets rally on tech & AI gains", time:"1 week", x:1350 },
+  { title:"Tesla “Robovan”", time:"1 month", x:1750 },
+  { title:"Great Smog of London", time:"1 year", x:2150 },
+  { title:"Corona", time:"5 years", x:2550 }
+];
+
+const canvas = document.querySelector(".canvas");
+
+events.forEach(e => {
+  const div = document.createElement("div");
+
+  div.className = "event";
+  div.style.left = e.x + "px";
+  div.style.top = "55%"; /* same as line */
+
+  div.innerHTML = `
+    <a href='${e.title}.html'>
+    <div class="event-title">${e.title}</div>
+    <div class="event-dot"></div>
+    <div class="event-time">${e.time}</div>
+  `;
+
+  div.onclick = () => {
+    window.location.href = "article.html";
+  };
+
+  canvas.appendChild(div);
+});
+
+/* wheel scroll → horizontal */
+window.addEventListener("wheel", (e) => {
+  window.scrollBy(e.deltaY, 0);
+});
+
+</script>
+
+</body>
+</html>

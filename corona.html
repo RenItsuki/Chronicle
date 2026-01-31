@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Chronicle – COVID-19</title>
+
+<style>
+
+/* ===============================
+   GLOBAL (Stranger Things Theme)
+================================ */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b0b0f;
+  color: #e5e5e5;
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px;
+  background: #111116;
+  border-bottom: 1px solid #2a2a2f;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff1e1e;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255,0,0,0.7);
+}
+
+.nav-right {
+  display: flex;
+  gap: 22px;
+}
+
+.nav-right div {
+  cursor: pointer;
+  color: #cfcfcf;
+}
+
+.nav-right div:hover {
+  color: #ff1e1e;
+}
+
+/* ===============================
+   ARTICLE
+================================ */
+.article {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #141418;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(255,0,0,0.05);
+}
+
+.article h1 {
+  font-size: 34px;
+  color: #ff3b3b;
+  border-bottom: 1px solid #2a2a2f;
+  padding-bottom: 10px;
+}
+
+.article h2 {
+  color: #ff6b6b;
+  border-bottom: 1px solid #2a2a2f;
+  margin-top: 40px;
+}
+
+.article p {
+  line-height: 1.7;
+  color: #d4d4d4;
+}
+
+.article img {
+  border-radius: 8px;
+  margin: 20px auto;
+  filter: brightness(0.85);
+}
+
+/* ===============================
+   CLAIM STYLE
+================================ */
+.claim {
+  background: rgba(255,30,30,0.15);
+  border-bottom: 2px solid #ff1e1e;
+  padding: 2px 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.claim:hover {
+  background: rgba(255,30,30,0.35);
+  box-shadow: 0 0 8px rgba(255,0,0,0.5);
+}
+
+/* Hover preview */
+.preview {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  background: #1a1a1f;
+  padding: 10px;
+  width: 280px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #ff1e1e;
+  display: none;
+}
+
+.claim:hover .preview {
+  display: block;
+}
+
+/* ===============================
+   POPUP
+================================ */
+.popup {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.9);
+}
+
+.popup-content {
+  background: #18181c;
+  width: 650px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #ff1e1e;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  color: #ff1e1e;
+  font-weight: bold;
+}
+
+/* ===============================
+   VERSIONS
+================================ */
+.version {
+  border-left: 4px solid #ff1e1e;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: #121217;
+}
+
+.version.secondary { border-left-color: orange; }
+.version.old { border-left-color: gray; opacity: .6; }
+
+/* ===============================
+   BUTTONS
+================================ */
+.actions button {
+  margin-top: 8px;
+  margin-right: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.support {
+  background: #ff1e1e;
+  color: white;
+}
+
+.challenge {
+  background: #2a2a2f;
+  color: white;
+  border: 1px solid #ff1e1e;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===============================
+   NAVBAR
+================================ -->
+<div class="navbar">
+  <div class="logo">Chronicle</div>
+  <div class="nav-right">
+    <div>Home</div>
+    <div>Full Timeline</div>
+    <div>Hot Articles</div>
+  </div>
+</div>
+
+<!-- ===============================
+   ARTICLE
+================================ -->
+<div class="article">
+
+<h1>COVID-19</h1>
+
+<p>
+Coronavirus disease 2019 (COVID-19) is an infectious disease caused by the SARS-CoV-2 virus.
+</p>
+
+<div style="width: 100%; display: flex;"><img src="corona.png" height="200px" weight="100px"></div>
+
+<h2>Origin</h2>
+<p>
+Early reports suggested that
+<span class="claim" onclick="openPopup('origin')">
+the virus originated from a seafood market in Wuhan, China
+<span class="preview">Alt version: circulated before market • 👍 540</span>
+</span>.
+</p>
+
+<h2>Transmission</h2>
+<p>
+Initially, authorities believed
+<span class="claim" onclick="openPopup('airborne')">
+COVID-19 does not spread through airborne transmission
+<span class="preview">Alt: spreads indoors • 👍 421</span>
+</span>.
+</p>
+
+<h2>Vaccines</h2>
+<p>
+Clinical trials later showed
+<span class="claim" onclick="openPopup('vaccine')">
+vaccines significantly reduce severe illness and death
+<span class="preview">Alt: waning effectiveness • 👍 610</span>
+</span>.
+</p>
+
+</div>
+
+<!-- ===============================
+   POPUP
+================================ -->
+<div class="popup" id="popup">
+  <div class="popup-content" id="popupContent"></div>
+</div>
+
+<script>
+
+let activeClaim = null;
+
+const claimData = {
+  origin: [
+    { text:"Market origin", supports:820, type:"main" },
+    { text:"Circulated earlier", supports:540, type:"secondary" },
+    { text:"Unknown origin", supports:210, type:"old" }
+  ],
+  airborne: [
+    { text:"Airborne transmission confirmed", supports:900, type:"main" },
+    { text:"Indoor only", supports:421, type:"secondary" },
+    { text:"No airborne", supports:120, type:"old" }
+  ],
+  vaccine: [
+    { text:"Reduces severe illness", supports:1000, type:"main" },
+    { text:"Waning effectiveness", supports:610, type:"secondary" },
+    { text:"Prevents all infection", supports:90, type:"old" }
+  ]
+};
+
+function openPopup(key){
+  activeClaim = key;
+  renderPopup();
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+function renderPopup(){
+  const container = document.getElementById("popupContent");
+  container.innerHTML = '<span class="close" onclick="closePopup()">✕</span><h3>Claim Versions</h3>';
+
+  claimData[activeClaim].forEach((v,i)=>{
+    container.innerHTML += `
+      <div class="version ${v.type}">
+        <b>${v.text}</b><br>
+        👍 <span>${v.supports}</span>
+        <div class="actions">
+          <button class="support" onclick="supportVersion(${i})">Support</button>
+          <button class="challenge" onclick="challengeVersion()">Challenge</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function supportVersion(i){
+  claimData[activeClaim][i].supports++;
+  renderPopup();
+}
+
+function challengeVersion(){
+  const text = prompt("Write new version:");
+  if(!text) return;
+  claimData[activeClaim].push({ text, supports:1, type:"secondary" });
+  renderPopup();
+}
+
+</script>
+
+</body>
+</html>
